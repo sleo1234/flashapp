@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <iostream>
 #include <iomanip>
-
+#include <functional>
 const double EPSILON = 1e-9; // Threshold for considering values as zero
 using namespace std;
 
@@ -29,6 +29,43 @@ for (int i=0; i< vec.size(); i++){
 
 
 }
+
+
+vector<double> vecDiff(vector<double> vec1, vector<double> vec2){
+
+int n1 = vec1.size();
+int n2 = vec2.size();
+
+vector<double> result(n1);
+
+for (int i=0; i<n1; i++){
+
+result[i]= vec1[i]-vec2[i];
+
+}
+
+return result;
+
+}
+
+double euclidean_norm(vector<double> vec){
+double sum = 0.0;
+
+for (int i=0; i<vec.size(); i++){
+
+
+sum = sum+vec[i]*vec[i];
+
+}
+
+
+
+return sqrt(sum);
+}
+
+
+
+
 vector<double> vecTimesMat(vector<vector<double>> mat, vector<double> vec){
 
 int v_size = vec.size();
@@ -101,4 +138,36 @@ std::vector<std::vector<double>> invertMatrix(const std::vector<std::vector<doub
     }
 
     return inverseMatrix;
+}
+
+
+vector<vector<double>> computeJacobian(const function<vector<double>(const vector<double>&)>& equations,
+const vector<double>& vars,
+double stepSize = 1e-6) {
+
+
+int numEquations = equations(vars).size();
+int numVariables = vars.size();
+
+vector<vector<double>> jacobian (numEquations, vector<double>(numVariables,0.0));
+
+for (int j=0; j< numVariables; ++j){
+
+
+vector<double> perturbedVars = vars;
+perturbedVars[j] += stepSize;
+
+vector<double> fPlus = equations(perturbedVars);
+vector<double> fOriginal = equations(vars);
+
+for (int i=0; i< numEquations; ++i){
+
+jacobian[i][j] = (fPlus[i]-fOriginal[i])/stepSize;
+
+  }
+
+}
+
+return jacobian;
+
 }

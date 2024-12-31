@@ -1,8 +1,8 @@
 #include <iostream>
 #include <iomanip>
 #include "MatrixOperations.h"
-using namespace std;
 
+using namespace std;
 int main() {
     // Example input matrix
     std::vector<std::vector<double>> matrix = {
