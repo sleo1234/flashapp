@@ -6,8 +6,8 @@
 using namespace std;
 
 
-vector<double> newtonRaphson(const function<vector<double>(const vector<double>&)>& eq, double tol
-,vector<double> x0) {
+vector<double> newtonRaphson(const function<vector<double>(const vector<double>&)>& eq,
+vector<double> x0, double tol) {
 
 int numVars = x0.size();
 int maxIter = 100;
@@ -32,7 +32,7 @@ x[i]=vecDiff(x[i-1] , vecTimesMat(invertMatrix(computeJacobian(eq,x[i-1])),eq(x[
 cout<<"Solution "<<endl;
 
 printVector(x[i]);
-cout<<" at "<<i<<"iteration ";
+cout<<" at "<<i<<" iteration "<<endl;
 
 if (euclidean_norm(vecDiff(x[i],x[i-1]))<= tol){
  sol = x[i];
@@ -43,30 +43,12 @@ if (euclidean_norm(vecDiff(x[i],x[i-1]))<= tol){
  if (flag>0) break;
 
  }
+if (flag == -1) {
 
-printVector(sol);
+cout<<"Solution not found"<<endl;
+}
 return sol;
 
 }
 
-vector<double> sys(const vector<double>& vars){
- 
- double x1 = vars[0];
- double x2 = vars[1];
-// double x3 = vars[2];
- 
- return {x1+2*x2-5,  
-        x1+x2+2};
 
- 
-}
-
-
-int main(){
-
-vector<double> x0 = {1.0,0.5};
-double tol=1e-4;
-
-newtonRaphson(sys,tol,x0);
-return 0;
-}
