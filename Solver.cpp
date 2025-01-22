@@ -3,8 +3,9 @@
 #include <iomanip>
 #include <functional>
 #include "MatrixOperations.h"
-using namespace std;
 
+
+using namespace std;
 
 vector<double> newtonRaphson(const function<vector<double>(const vector<double>&)>& eq,
 vector<double> x0, double tol) {
