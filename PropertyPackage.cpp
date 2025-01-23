@@ -1,7 +1,7 @@
 #include <iostream>
 #include "PropertyPackage.h"
 #include <vector>
-
+#include "Solver.h"
 
 double R=8.31;
 
@@ -28,7 +28,7 @@ vector<double> PropertyPackage::calcKi (double temp, double press) {
                 
         for (int i=0; i < nc; i++) {
 
-            K_i[i] = (P_cr[i]/press)*exp(5.37*(1+omega[i])*(1- T_cr[i]/temp));
+            K_i[i] = (P_cr[i]/press)*exp(5.37*(1+omega[i])*(1-T_cr[i]/temp));
               cout<<P_cr[i]<<endl;
         }
    return K_i;
@@ -135,16 +135,69 @@ return Aij;
 
 
 
+vector<vector<double>> PropertyPackage::getAi(vector<vector<double>> mat,vector<double> xmol){
+
+int n= xmol.size();
+
+vector<vector<double>>result(n,vector<double>(n)); 
+
+for (int i=0; i<n; i++){
+
+
+result[i] =  prodVec(xmol,mat[i]);
+
+}
+
+return result;
+
+}
+
+
+double PropertyPackage::alfam(double temp, vector<double> xmol){
+
+vector<double> alfa = alfa_m(temp);
+
+double sum=0;
+
+for(int i=0; i<nc;i++){
+
+   for(int j=0; j<nc;j++){
+
+if (xmol[i]==0) {
+      alfa[i]=0;
+      alfa[j]=0;
+        sum = sum+xmol[j]*alfa[i]*alfa[j];
+
+   }
+
+
+
+   }
+
+}
+
+
+return sum;
+}
 
 
 
 
+vector<double> PropertyPackage::b_M(){
+
+ vector<double> b(nc);
+
+   for (int i=0; i<nc; i++){
+        b[i] = 0.077796*R*(T_cr[i]/P_cr[i]);
+
+
+      }
 
 
 
 
-
-
+return b;
+}
 
 
 

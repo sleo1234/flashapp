@@ -84,6 +84,22 @@ return result;
 
 }
 
+vector<double> prodVec(vector<double> vec1, vector<double>vec2){
+
+int n = vec1.size();
+
+vector<double> result (n);
+
+for (int i=0; i<n; i++){
+
+    result[i] = vec1[i]*vec2[i];
+  }
+
+return result;
+}
+
+
+
 std::vector<std::vector<double>> invertMatrix(const std::vector<std::vector<double>>& matrix) {
     int n = matrix.size();
     std::vector<std::vector<double>> augmentedMatrix(n, std::vector<double>(2 * n, 0.0));

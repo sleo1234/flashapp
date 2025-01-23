@@ -30,7 +30,9 @@ public:
  vector<double> lambda_vec();
  vector<double> alfa_m(double temp);
  vector<vector<double>> getAij(double temp, double p);
- 
+ vector<vector<double>> getAi(vector<vector<double>> mat, vector<double> xmol);
+ double alfam(double temp, vector<double> xmol);
+ vector<double> b_M(); 
 };
 
 
