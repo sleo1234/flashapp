@@ -26,7 +26,11 @@ public:
  vector<double> calcKi (double temp, double press); 
  vector<double> calcPi_sat(double temp); 
  vector<double> calcPi( vector<double> A,  vector<double> B, vector<double> C, double T); 
-
+ vector<double> a_M(double temp);
+ vector<double> lambda_vec();
+ vector<double> alfa_m(double temp);
+ vector<vector<double>> getAij(double temp, double p);
+ 
 };
 
 

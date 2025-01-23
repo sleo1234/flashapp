@@ -62,6 +62,74 @@ vector<double> PropertyPackage::calcPi(vector<double> A,vector<double> B,vector<
         return Pi;
 }
 
+vector<double> PropertyPackage::lambda_vec(){
+
+
+
+vector<double> lamb_vec(nc);
+
+vector<double>acc = omega;
+
+        for (int i=0; i < nc; i++) {
+            if (acc[i] < 0.5215){
+
+              lamb_vec[i] = 0.37464 + 1.5423 * acc[i] - 0.26992 * acc[i] * acc[i];
+            }
+
+            else {
+                lamb_vec[i] = 0.3796 + 1.485 * acc[i] - 0.1644 * acc[i] * acc[i] + 0.01666 * acc[i] * acc[i] * acc[i];
+            }
+
+        }
+        return lamb_vec;
+
+
+
+}
+
+
+
+vector<double> PropertyPackage::alfa_m(double temp){
+vector<double> alfa(nc);
+vector<double> lambda = lambda_vec();
+
+  for (int i=0; i < nc; i++) {
+         alfa[i] = pow(1+ lambda[i] * (1 - sqrt(temp/T_cr[i])),2);
+         cout<<"alfa----- "<<alfa[i]<<endl;
+        }
+return alfa;
+}
+
+vector<double> PropertyPackage::a_M(double temp){
+
+   vector<double> a(nc);
+        vector<double> alfa = alfa_m (temp);
+        for (int i=0; i < nc; i++) {
+            a[i] = 0.45724 * alfa[i] * R * R * (T_cr[i] * T_cr[i]) / P_cr[i];
+
+        }
+
+        return a;
+}
+
+
+
+vector<vector<double>>  PropertyPackage::getAij(double temp, double p){
+double k = p/(temp*temp*R*R);
+vector<double> a(nc);
+vector<double> alfa = alfa_m(temp);
+vector<vector<double>> Aij(nc,vector<double>(nc));
+
+  for (int i=0; i<nc;i++){
+    for (int j=0; j<nc;j++){
+    
+    Aij[i][j] = k * sqrt(a_M(temp)[i]*a_M(temp)[j]);
+ 
+        }
+      }
+
+return Aij;
+}
 
 
 
@@ -71,6 +139,26 @@ vector<double> PropertyPackage::calcPi(vector<double> A,vector<double> B,vector<
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+//vector<double> PropertyPackage::
+
+//vector<double> PropertyPackage::
+
+
+//vector<double> PropertyPackage::
+ 
+//vector<double> PropertyPackage::
+//
 
 
 
