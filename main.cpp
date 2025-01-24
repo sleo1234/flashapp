@@ -32,6 +32,38 @@ x1*x1*x1+3*x1*x1-4*x1+0.98
  return system;
  
 }
+
+
+vector<double> systemEq(const vector<double>& vars){
+ 
+ double x1 = vars[0];
+ 
+vector<double> T_cr={369.8,425.2,469.7};
+vector<double> P_cr={4.25,3.8,3.37};
+vector<double> xmol={0.5,0.25,0.25};
+vector<double> omega={0.153,0.199,0.255};
+ 
+int nc = T_cr.size();
+double T =400;
+double press = 1.5;
+
+PropertyPackage pr(nc,omega,T_cr,P_cr,xmol);
+pr.nc=nc;
+pr.T_cr=T_cr;
+pr.P_cr=P_cr;
+pr.omega=omega;
+pr.x_mol=xmol;
+double result= pr.evalPengRobinsonEq(press,T,xmol,x1);
+                           
+vector <double> system = {
+result
+};
+
+ return system;
+ 
+}
+
+
 int main() {
     // Example input matrix
 
@@ -43,17 +75,30 @@ vector<double> A={15.726,1872.46,-25.16};//propane
 vector<double> B={15.678,2154.9,-34.42};//butane
 vector<double> C={15.883,2477.07,-39.94};//pentane
 
-PropertyPackage pr(3,{0.152, 0.193,0.251},{400.3,390.5,234.0},{1.3,2.4,4.3},{0.4,0.2,0.4});
-pr.nc=3;
-pr.T_cr={369.8,425.2,469.7};
-pr.P_cr={1,2,3};
-pr.omega={0.152, 0.193,0.251};
-pr.x_mol={0.4,0.2,0.4};
-vector<double> result = pr.calcKi(400,0.4);
-vector<double> result2 = pr.calcPi_sat(400);
-vector<double> result3 = pr.calcPi(A,B,C,400);
+vector<double> T_cr={369.8,425.2,469.7};
+vector<double> P_cr={4.25,3.8,3.37};
+vector<double> xmol={0.5,0.25,0.25};
+vector<double> omega={0.153,0.199,0.255};
+ 
+int nc = T_cr.size();
+double T =400;
+double press = 1.5;
 
-printVector(result3);
+PropertyPackage pr(nc,omega,T_cr,P_cr,xmol);
+pr.nc=nc;
+pr.T_cr=T_cr;
+pr.P_cr=P_cr;
+pr.omega=omega;
+pr.x_mol=xmol;
+//vector<double> result = pr.calcKi(400,0.4);
+//vector<double> result2 = pr.calcPi_sat(400);
+//vector<double> result3 = pr.calcPi(A,B,C,400);
+
+vector<double> sols = pr.solvePengRobinsonEq(T,press,xmol);
+cout<<"solutions"<<endl;
+printVector(sols);
+cout<<"end of sols"<<endl;
+//printVector(result3);
 
 //printVector(P_cr);
 //vector<double> vec = {1,2};    
@@ -61,7 +106,7 @@ printVector(result3);
 //vector<double> x0 {0.1,0.1,0.10,0.1,0.1,0.1,0.1,0.1,0.1,0.1};
 //printVector(sys(x0));
 vector<double> x0 = {1};
-newtonRaphson(sys,x0,1e-8);
+newtonRaphson(systemEq,x0,1e-8);
 
     try {
           

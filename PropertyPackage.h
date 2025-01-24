@@ -36,7 +36,9 @@ public:
  double covolParam(vector<double> xmol);
  double attractParam(double temp, vector<double> xmol);
  vector<double> analyticalPengRobinson(double press, double temp, vector<double> xmol);
- 
+ double evalPengRobinsonEq(double press, double temp, vector<double> xmol, double Zc0);
+ void calcPengRobinsonParam(double T, double press, vector<double> xmol); 
+ vector<double> solvePengRobinsonEq(double T, double press, vector<double> xmol);
 };
 
 

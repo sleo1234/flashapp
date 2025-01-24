@@ -2,7 +2,7 @@
 #include "PropertyPackage.h"
 #include <vector>
 #include "Solver.h"
-
+#include <string.h>
 double R=8.31;
 
 
@@ -283,7 +283,56 @@ return A;
             sols.push_back(sol3);
         }
         return sols;
-    } 
+    }
+ 
+double PropertyPackage::evalPengRobinsonEq(double press, double temp, vector<double> xmol,double Zc0) {
+
+
+ double A = (attractParam (temp,xmol) * press) / (R * R * temp * temp);
+ double B = (covolParam(xmol) * press) /(R * temp);
+
+ double coeff1 = 1.0-B;
+ double coeff2 = (A-2*B-3*B*B);
+ double coeff3 =(A*B-B*B-B*B*B);
+ string exp = "Zc^3-"+to_string(coeff1)+"*Zc^2+"+to_string(coeff2)+"*Zc-"+to_string(coeff3);
+ cout<<exp<<endl;
+double val = Zc0*Zc0*Zc0+coeff1*Zc0*Zc0+coeff2*Zc0-coeff3;
+
+
+return val;
+
+}
+
+
+
+
+
+void PropertyPackage::calcPengRobinsonParam(double T, double press, vector<double> xmol){
+
+
+b_M();
+alfa_m(T);
+a_M(T);
+lambda_vec();
+attractParam(T,xmol);
+covolParam(xmol);
+
+
+
+
+}
+
+vector<double> PropertyPackage::solvePengRobinsonEq(double T, double press, vector<double> xmol) {
+
+calcPengRobinsonParam(T,press,xmol);
+
+
+vector<double> sols =analyticalPengRobinson(press, T, xmol);
+
+return sols;
+
+}
+
 
 
 //vector<double> PropertyPackage::
@@ -295,6 +344,8 @@ return A;
  
 //vector<double> PropertyPackage::
 //
+
+
 
 
 
