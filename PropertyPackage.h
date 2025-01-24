@@ -32,7 +32,11 @@ public:
  vector<vector<double>> getAij(double temp, double p);
  vector<vector<double>> getAi(vector<vector<double>> mat, vector<double> xmol);
  double alfam(double temp, vector<double> xmol);
- vector<double> b_M(); 
+ vector<double> b_M();
+ double covolParam(vector<double> xmol);
+ double attractParam(double temp, vector<double> xmol);
+ vector<double> analyticalPengRobinson(double press, double temp, vector<double> xmol);
+ 
 };
 
 

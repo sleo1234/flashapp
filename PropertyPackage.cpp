@@ -199,8 +199,91 @@ vector<double> PropertyPackage::b_M(){
 return b;
 }
 
+double PropertyPackage::covolParam(vector<double> xmol){
 
 
+double B = 0;
+
+vector<double> bm = b_M();
+double sum =0;
+
+for (int i=0; i<nc; i++){
+
+sum = sum + bm[i] * xmol[i];
+
+
+}
+
+B=sum;
+
+return B;
+}
+
+double PropertyPackage::attractParam(double temp, vector<double> xmol){
+double A=0.0;
+vector<double> am = a_M(temp);
+
+double sum =0;
+ for (int i=0; i<nc; i++){
+     for (int j=0; j<nc; j++){
+
+   sum = sum + xmol[i]*xmol[j]*sqrt(am[i]*am[j]);
+
+
+    }
+  }
+    
+A = sum;
+
+return A;
+
+
+}
+
+        vector<double> PropertyPackage::analyticalPengRobinson(double press, double temp, vector<double> xmol)  {
+        vector<double> sols(3);
+        double pi = 4*atan(1);
+
+        double A = (attractParam (temp,xmol) * press) / (R * R * temp * temp);
+        double B = (covolParam(xmol) * press) /(R * temp);
+
+        double C2 = B-1.0;
+        double C1 = (A-3*B*B-2*B);
+        double C0 =(B*B*B+B*B-A*B);
+        double Q1 = C2*C1/6.0-C0/2.0-(C2*C2*C2)/27.0;
+        double P1 = C2*C2/9.0-C1/3.0;
+        double D = Q1*Q1-P1*P1*P1;
+  
+        double teta = 0.0;
+
+        if ( D >= 0.0){
+            double sign1 = (Q1+sqrt(D))/(abs(Q1+sqrt(D)));
+            double sign2 = (Q1-sqrt(D))/(abs(Q1-sqrt(D)));
+            double sol1 =sign1*pow(abs((Q1+sqrt(D))),1.0/3.0)+sign2*pow(abs((Q1-sqrt(D))),1.0/3.0)-C2/3.0;
+            sols.push_back(sol1);
+            
+        }
+
+        else {
+
+
+            double t1 = (Q1*Q1)/(P1*P1*P1);
+            double t2 = (sqrt(1-t1))/((sqrt(t1)*(Q1/abs(Q1))));
+            if (atan(t2) <0){
+                teta = atan(t2)+pi;
+            }
+            else {
+                teta = atan(t2);
+            }
+            double sol1 = 2*sqrt(P1)*cos(teta/3.0)-C2/3.0;
+            double sol2 = 2*sqrt(P1)*cos((teta+2*pi)/3.0)-C2/3.0;
+            double sol3 = 2*sqrt(P1)*cos((teta+4*pi)/3.0)-C2/3.0;
+            sols.push_back(sol1);
+            sols.push_back(sol2);
+            sols.push_back(sol3);
+        }
+        return sols;
+    } 
 
 
 //vector<double> PropertyPackage::
