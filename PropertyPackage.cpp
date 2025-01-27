@@ -29,7 +29,7 @@ vector<double> PropertyPackage::calcKi (double temp, double press) {
         for (int i=0; i < nc; i++) {
 
             K_i[i] = (P_cr[i]/press)*exp(5.37*(1+omega[i])*(1-T_cr[i]/temp));
-              cout<<P_cr[i]<<endl;
+              
         }
    return K_i;
     }
@@ -296,7 +296,7 @@ double PropertyPackage::evalPengRobinsonEq(double press, double temp, vector<dou
  double coeff3 =(A*B-B*B-B*B*B);
  string exp = "Zc^3-"+to_string(coeff1)+"*Zc^2+"+to_string(coeff2)+"*Zc-"+to_string(coeff3);
  cout<<exp<<endl;
-double val = Zc0*Zc0*Zc0+coeff1*Zc0*Zc0+coeff2*Zc0-coeff3;
+double val = Zc0*Zc0*Zc0-coeff1*Zc0*Zc0+coeff2*Zc0-coeff3;
 
 
 return val;
@@ -333,7 +333,41 @@ return sols;
 
 }
 
+// calculate fugacity coefficients
+vector<double> PropertyPackage::calcFi(double T, double press, vector<double> xmol, double Zalfa){
 
+
+double Vm =(Zalfa*R*T)/press;//cm3/mol
+double bm = covolParam(xmol);
+double aa = attractParam(T, xmol);
+vector<double> bi = b_M();
+double rad2 = sqrt(2);
+vector<double> ffi(nc);
+vector<double> fug(nc);
+double Bm = bm*press/(R*T);
+double Am = aa*press/(R*R*T*T);
+vector<double> Bi(nc);
+vector<double> vecSum = vecTimesMat(getAij(T,press),xmol);
+
+
+for (int i=0; i<nc;i++){
+
+Bi[i]=press*bi[i]/(R*T);
+
+ ffi[i] =(Bi[i]/Bm)*(Zalfa-1.0)-log(Zalfa-Bm)-
+                    (Am/(2*rad2*Bm))*( (2.0/Am)*vecSum[i] - Bi[i]/Bm)*log((Zalfa+(1+rad2)*Bm)/(Zalfa+(1-rad2)*Bm));
+
+fug[i] = exp(ffi[i]);
+
+  }
+
+
+
+
+
+return fug;
+
+}
 
 //vector<double> PropertyPackage::
 

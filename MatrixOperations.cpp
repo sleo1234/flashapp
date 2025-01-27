@@ -30,6 +30,21 @@ for (int i=0; i< vec.size(); i++){
 
 }
 
+double vecSum(vector<double> vec){
+
+double sum =0;
+
+int n=vec.size();
+
+for (int i=0; i<n;i++){
+
+
+sum = sum+vec[i];
+
+}
+
+return sum;
+}
 
 vector<double> vecDiff(vector<double> vec1, vector<double> vec2){
 

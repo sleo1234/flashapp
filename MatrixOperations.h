@@ -15,6 +15,6 @@ double euclidean_norm(vector<double>);
 vector<vector<double>> computeJacobian(const function<vector<double>(const vector<double>&)>& equations,const vector<double>& vars, double stepSize = 1e-6);
 vector<double> prodVec(vector<double> vec1, vector<double> vec2);
 double alfam(double temp, double xmol);
-
+double vecSum(vector<double> vec);
 
 #endif // MATRIX_OPERATIONS_H

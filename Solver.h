@@ -8,6 +8,7 @@ using namespace std;
 
 vector<double> newtonRaphson(const function<vector<double>(const vector<double>&)>& eq,
 vector<double> x0, double tol);
+double nRaphson(const function<double(double)>& fun, double x0, double error, int maxIter);
 
 
 #endif

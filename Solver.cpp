@@ -53,3 +53,35 @@ return sol;
 }
 
 
+double nRaphson(const function<double(double)>& fun, double x0, double error, int maxIter){
+
+
+int iter=0;
+double h=0.00001;
+
+double sol=0.0;
+int flag=-1;
+vector<double> vec(maxIter);
+
+vec[0]=x0; 
+
+for (int i=1; i< maxIter; i++){
+
+vec[i] = vec[i-1] -fun(vec[i-1])/((fun(vec[i-1]+h)-fun(vec[i-1]-h))/(2*h));
+
+   if (abs(vec[i] - vec[i-1]) <=error){
+   sol=vec[i];
+   flag=1;
+   cout<<"Solutiom "<<sol<<" found after "<<i<<" iterations"<<endl;
+   } 
+
+if (flag>0) break;
+
+}
+
+if (flag<0) {
+cout<<"Solution not found."<<endl;
+
+}
+return sol;
+}
