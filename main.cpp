@@ -5,6 +5,7 @@
 #include <cmath>
 #include "PropertyPackage.h"
 #include "ExpressionBuilder.h"
+#include "FlashCalculation.h"
 using namespace std;
 vector<double> sys(const vector<double>& vars){
  
@@ -130,6 +131,15 @@ vector<double> sols = pr.solvePengRobinsonEq(T,press,xmol);
 cout<<"solutions"<<endl;
 printVector(sols);
 cout<<"end of sols"<<endl;
+
+
+
+
+
+
+
+
+
 
 vector<double> testRemoveAtIndexI ={1,2,3,4,5};
 
