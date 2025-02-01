@@ -4,6 +4,8 @@
 #include <iostream>
 #include <iomanip>
 #include <functional>
+#include <string>
+
 const double EPSILON = 1e-9; // Threshold for considering values as zero
 using namespace std;
 
@@ -200,5 +202,26 @@ jacobian[i][j] = (fPlus[i]-fOriginal[i])/stepSize;
 }
 
 return jacobian;
+
+}
+
+//return either min or max from vector of double elements
+
+
+
+double find_min_max(std::vector<double>& nums, string m,int start, int end) {
+
+if (m == "min") {
+    auto min = min_element(nums.begin(),nums.end());
+
+    return (double)(*min);
+}
+    else if (m == "max") {
+        auto max = max_element(nums.begin(),nums.end());
+        return (double)(*max);
+    }
+else {
+        throw std::invalid_argument("Invalid input: choose either min or max");
+    }
 
 }

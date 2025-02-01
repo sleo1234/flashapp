@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <functional>
 #include "MatrixOperations.h"
-
+#include <cstdarg>
 
 using namespace std;
 
@@ -53,7 +53,7 @@ return sol;
 }
 
 
-double nRaphson(const function<double(double)>& fun, double x0, double error, int maxIter){
+double nRaphson(const function <double(double)>& fun, double x0, double error, int maxIter,...){
 
 
 int iter=0;

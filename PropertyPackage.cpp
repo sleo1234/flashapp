@@ -34,6 +34,7 @@ vector<double> PropertyPackage::calcKi (double temp, double press) {
    return K_i;
     }
 
+
 vector<double> PropertyPackage::calcPi_sat (double temp){
 
 vector<double> P_i(nc);
@@ -329,9 +330,18 @@ calcPengRobinsonParam(T,press,xmol);
 
 vector<double> sols =analyticalPengRobinson(press, T, xmol);
 
+int noOfSOlutions = sols.size();
+
+
+
 return sols;
 
 }
+
+
+//check for mutliple real solutions
+//highest compresibility factor - vapor phas, lowest - liquid phase;
+ 
 
 // calculate fugacity coefficients
 vector<double> PropertyPackage::calcFi(double T, double press, vector<double> xmol, double Zalfa){
@@ -376,8 +386,26 @@ return fug;
 
 //vector<double> PropertyPackage::
  
-//vector<double> PropertyPackage::
-//
+double PropertyPackage::mixRule(vector<double> xmol, vector<double> property){
+
+double propMixture=0;
+
+
+for (int i=0; i<nc; i++){
+
+
+propMixture = propMixture + xmol[i]*property[i];
+
+}
+
+
+
+
+
+
+return propMixture;
+}
+
 
 
 

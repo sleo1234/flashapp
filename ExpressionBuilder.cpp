@@ -145,7 +145,17 @@ return output;
 }
 
 
+double diffRachfordRice(vector<double> K, vector<double>, vector<double> xmol,double V){
 
+double h=0.000002;
+
+
+double diff= (rachfordRice(K,xmol,V+h)-rachfordRice(K,xmol,V-h))/(2*h);
+
+
+
+return diff;
+}
 
 
 
