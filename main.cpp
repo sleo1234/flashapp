@@ -97,6 +97,11 @@ return result;
 
 }
 
+double solVapFrac(vector<double> K,vector<double> xmol, double x){
+
+return rachfordRice(K,xmol,x);
+}
+
 int main() {
     // Example input matrix
 
@@ -127,27 +132,26 @@ vector<double> Ki = pr.calcKi(T,press);
 //vector<double> result2 = pr.calcPi_sat(400);
 //vector<double> result3 = pr.calcPi(A,B,C,400);
 
-vector<double> sols = pr.solvePengRobinsonEq(T,press,xmol);
+//vector<double> sols = pr.solvePengRobinsonEq(T,press,xmol);
 cout<<"solutions"<<endl;
-printVector(sols);
+//printVector(sols);
 cout<<"end of sols"<<endl;
 
+FlashCalculation flash = FlashCalculation(pr);
+
+double Pinit = flash.calcPinit(pr,xmol,T);
+cout<<"Pinit: "<<Pinit<<endl;
+double value = flash.bubblePfun(pr, T, press, xmol);
+cout<<" fun eval :"<<value<<endl;
 
 
 
-
-
-
-
-
-
-vector<double> testRemoveAtIndexI ={1,2,3,4,5};
-
-vector<double> resultTest = removeAtIndex(testRemoveAtIndexI,2);
-cout<<"------------- here  ---------"<<endl;
-printVector(Ki);
-double value = rachfordRice(Ki,xmol,0.5);
-cout<<"=========0 "<<value<<endl;
+//vector<double> testRemoveAtIndexI ={1,2,3,4,5};
+//vector<double> resultTest = removeAtIndex(testRemoveAtIndexI,2);
+//cout<<"------------- here  ---------"<<endl;
+//printVector(Ki);
+//double value = rachfordRice(Ki,xmol,0.5);
+//cout<<"=========0 "<<value<<endl;
 //printVector(result3);
 
 //printVector(P_cr);
@@ -156,29 +160,11 @@ cout<<"=========0 "<<value<<endl;
 //vector<double> x0 {0.1,0.1,0.10,0.1,0.1,0.1,0.1,0.1,0.1,0.1};
 //printVector(sys(x0));
 double x0 = 0.5;
-double solution = nRaphson(eq,x0,1e-4,1000);
-cout<<"solution "<<solution<<endl;
+//double solution = nRaphson(solVapFrac,x0,1e-4,1000);
+//cout<<"solution "<<solution<<endl;
 //printVector(pr.calcFi(T,press,xmol,0.5));
 
-    try {
-          
-        // printMatrix(matrix);
-        // printVector(result);
 
-        // Call the invertMatrix function
-       // std::vector<std::vector<double>> inverseMatrix = invertMatrix(matrix);
-
-        // Output the inverse matrix
-       // std::cout << "Inverse matrix:" << std::endl;
-        //for (const auto& row : inverseMatrix) {
-          //  for (double val : row) {
-            //    std::cout << std::setw(10) << std::setprecision(6) << val << " ";
-         //   }
-            //std::cout << std::endl;
-        }
-    catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-    }
 
     return 0;
 }

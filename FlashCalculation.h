@@ -15,8 +15,8 @@ public:
  FlashCalculation(PropertyPackage pr);
 
 double solVapFrac(vector<double> K, vector<double> xmol,double x0);
-
-
+double calcPinit(PropertyPackage pr, vector<double> xmol, double T);
+double bubblePfun(PropertyPackage pr, double T, double press, vector<double> xmol);
 
 
 };

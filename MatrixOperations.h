@@ -16,5 +16,5 @@ vector<vector<double>> computeJacobian(const function<vector<double>(const vecto
 vector<double> prodVec(vector<double> vec1, vector<double> vec2);
 double alfam(double temp, double xmol);
 double vecSum(vector<double> vec);
-
+double find_min_max(std::vector<double>& nums, string m,int start, int end);
 #endif // MATRIX_OPERATIONS_H

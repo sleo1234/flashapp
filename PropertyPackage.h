@@ -40,6 +40,7 @@ public:
  void calcPengRobinsonParam(double T, double press, vector<double> xmol); 
  vector<double> solvePengRobinsonEq(double T, double press, vector<double> xmol);
  vector<double> calcFi(double T, double press, vector<double> xmol,double Zalfa);
+ double mixRule(vector<double> xmol, vector<double> property);
 };
 
 
