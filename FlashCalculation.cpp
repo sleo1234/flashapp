@@ -98,6 +98,7 @@ double ZiV=0;
 vector<double> PiSat(n);
 
 vector<double> sols = pr.analyticalPengRobinson(press, T, xmol); 
+pr.evalPengRobinsonEq(press,T,xmol,0);
 
 if (sols.size()>1) {
 

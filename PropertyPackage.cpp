@@ -242,7 +242,7 @@ return A;
 }
 
         vector<double> PropertyPackage::analyticalPengRobinson(double press, double temp, vector<double> xmol)  {
-        vector<double> sols(3);
+        vector<double> sols;
         double pi = 4*atan(1);
 
         double A = (attractParam (temp,xmol) * press) / (R * R * temp * temp);
@@ -267,7 +267,7 @@ return A;
 
         else {
 
-
+            
             double t1 = (Q1*Q1)/(P1*P1*P1);
             double t2 = (sqrt(1-t1))/((sqrt(t1)*(Q1/abs(Q1))));
             if (atan(t2) <0){
