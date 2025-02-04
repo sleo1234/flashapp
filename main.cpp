@@ -137,16 +137,28 @@ cout<<"solutions"<<endl;
 cout<<"end of sols"<<endl;
 
 FlashCalculation flash = FlashCalculation(pr);
+<<<<<<< HEAD
+=======
+
+double Pinit = flash.calcPinit(pr,xmol,T);
+cout<<"Pinit: "<<Pinit<<endl;
+double value = flash.bubblePfun(pr, T, press, xmol);
+cout<<" fun eval :"<<value<<endl;
+>>>>>>> refs/remotes/origin/main
 
 double Pinit = flash.calcPinit(pr,xmol,T);
 cout<<"Pinit: "<<Pinit<<endl;
 double value = flash.solveBubbleP(pr, T, Pinit, xmol, 1e-4,1000);
 
+<<<<<<< HEAD
 //double value = flash.initial(pr, T, Pinit,xmol);
 //cout<<" fun eval :"<<value<<endl;
 //double value = flash.bisect(pr,Pinit-1,Pinit+1,T,xmol,1e-4,1000);
 //double eval_fun = flash.bubblePfun(pr,T,3.58,xmol);
 //cout<<"============ "<<eval_fun<<endl;
+=======
+
+>>>>>>> refs/remotes/origin/main
 //vector<double> testRemoveAtIndexI ={1,2,3,4,5};
 //vector<double> resultTest = removeAtIndex(testRemoveAtIndexI,2);
 //cout<<"------------- here  ---------"<<endl;

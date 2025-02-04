@@ -67,6 +67,7 @@ auto lambda = [](vector<double> K, vector<double> xmol,double V) -> double {retu
 
 
 return 0;
+<<<<<<< HEAD
 
 }
 
@@ -155,6 +156,8 @@ cout<<sum-1;
 cout<<endl;
 
 return sum-1;
+=======
+>>>>>>> refs/remotes/origin/main
 
 }
 
@@ -165,8 +168,13 @@ double FlashCalculation::bubblePfun(PropertyPackage pr, double T, double press,v
 
 int n = pr.nc;
 double sum = 0.0;
+<<<<<<< HEAD
 double Pinit = calcPinit(pr,xmol,T); 
 vector<double> K0 = pr.calcKi(T,Pinit);
+=======
+
+vector<double> K0 = pr.calcKi(T,press);
+>>>>>>> refs/remotes/origin/main
 vector<double> K(n);
 vector<double> y0(n);
 
@@ -186,7 +194,10 @@ double ZiV=0;
 vector<double> PiSat(n);
 
 vector<double> sols = pr.analyticalPengRobinson(press, T, xmol); 
+<<<<<<< HEAD
 pr.evalPengRobinsonEq(press,T,xmol,0);
+=======
+>>>>>>> refs/remotes/origin/main
 
 if (sols.size()>1) {
 
@@ -197,6 +208,10 @@ ZiV = find_min_max(sols, "max",0,sols.size());
 }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/main
 else {
  ZiV = sols[0];
  ZiL = sols[0];
@@ -206,7 +221,11 @@ FiL = pr.calcFi(T, press, xmol, ZiL);
 
 for (int i=0; i<n ;i++){
 
+<<<<<<< HEAD
 y0[i]=xmol[i]*K0[i];
+=======
+y0[i]=K0[i]*xmol[i];
+>>>>>>> refs/remotes/origin/main
 
 }
 
@@ -218,6 +237,7 @@ for (int i=0; i<n; i++){
 K[i] = FiL[i]/FiV[i];
 y[i]=xmol[i]*K[i];
 
+<<<<<<< HEAD
 //sum = sum +xmol[i]*K[i]; 
 }
 
@@ -297,12 +317,31 @@ cout<<"Solution not found."<<endl;
 
 
 return sol;
+=======
+sum = sum +xmol[i]*K[i]; 
+}
+cout<<"---------------------Results------------------------------"<<endl;
+
+printVector(sols);
+cout<<"=========================="<<endl;
+printVector(FiL);
+cout<<endl;
+printVector(FiV);
+cout<<endl;
+cout<<ZiL;
+cout<<endl;
+cout<<ZiV;
+cout<<endl;
+cout<<"--------------------Results-------------------------------"<<endl;
+return sum;
+>>>>>>> refs/remotes/origin/main
 }
 
 
 
 
 
+<<<<<<< HEAD
 double FlashCalculation::bisect(PropertyPackage pr, double a, double b, double T, vector<double> xmol,double error, int maxIter){
 
 
@@ -368,6 +407,12 @@ return sol;
 
 
 //function
+=======
+
+
+
+
+>>>>>>> refs/remotes/origin/main
 
 
 
