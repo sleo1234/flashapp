@@ -24,7 +24,7 @@ x_mol=xmol;
 
 vector<double> PropertyPackage::calcKi (double temp, double press) {
         vector<double> K_i(nc);
-           cout<<"hereeee"<<endl;
+          
                 
         for (int i=0; i < nc; i++) {
 
@@ -96,7 +96,7 @@ vector<double> lambda = lambda_vec();
 
   for (int i=0; i < nc; i++) {
          alfa[i] = pow(1+ lambda[i] * (1 - sqrt(temp/T_cr[i])),2);
-         cout<<"alfa----- "<<alfa[i]<<endl;
+         
         }
 return alfa;
 }
@@ -296,7 +296,7 @@ double PropertyPackage::evalPengRobinsonEq(double press, double temp, vector<dou
  double coeff2 = (A-2*B-3*B*B);
  double coeff3 =(A*B-B*B-B*B*B);
  string exp = "Zc^3-"+to_string(coeff1)+"*Zc^2+"+to_string(coeff2)+"*Zc-"+to_string(coeff3);
- cout<<exp<<endl;
+ 
 double val = Zc0*Zc0*Zc0-coeff1*Zc0*Zc0+coeff2*Zc0-coeff3;
 
 

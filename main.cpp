@@ -88,7 +88,6 @@ pr.P_cr=P_cr;
 pr.omega=omega;
 pr.x_mol=xmol;
 vector<double> K = pr.calcKi(T,press);
-
 //double result= pr.evalPengRobinsonEq(press,T,xmol,x1);
 double result = rachfordRice(K,xmol,x);
 
@@ -115,11 +114,11 @@ vector<double> C={15.883,2477.07,-39.94};//pentane
 
 vector<double> T_cr={369.8,425.2,469.7};
 vector<double> P_cr={4.25,3.8,3.37};
-vector<double> xmol={0.5,0.25,0.25};
+vector<double> xmol={0.7,0.2,0.1};
 vector<double> omega={0.153,0.199,0.255};
  
 int nc = T_cr.size();
-double T =400;
+double T =430;
 double press = 1.5;
 
 PropertyPackage pr(nc,omega,T_cr,P_cr,xmol);
@@ -141,11 +140,13 @@ FlashCalculation flash = FlashCalculation(pr);
 
 double Pinit = flash.calcPinit(pr,xmol,T);
 cout<<"Pinit: "<<Pinit<<endl;
-double value = flash.bubblePfun(pr, T, press, xmol);
-cout<<" fun eval :"<<value<<endl;
+double value = flash.solveBubbleP(pr, T, Pinit, xmol, 1e-4,1000);
 
-
-
+//double value = flash.initial(pr, T, Pinit,xmol);
+//cout<<" fun eval :"<<value<<endl;
+//double value = flash.bisect(pr,Pinit-1,Pinit+1,T,xmol,1e-4,1000);
+//double eval_fun = flash.bubblePfun(pr,T,3.58,xmol);
+//cout<<"============ "<<eval_fun<<endl;
 //vector<double> testRemoveAtIndexI ={1,2,3,4,5};
 //vector<double> resultTest = removeAtIndex(testRemoveAtIndexI,2);
 //cout<<"------------- here  ---------"<<endl;
